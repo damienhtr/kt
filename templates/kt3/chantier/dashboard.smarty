@@ -1,0 +1,6 @@
+Top 5 des chantiers les plus incomplets.
+<UL>
+{foreach item=chantier from=$chantiers}
+<LI><a href="{$rootUrl}/chantier.php?fFolderId={$chantier->getId()}&action=detail">{$chantier->getName()}</a>: {$chantier->getUnlink()} fichier(s) manquant(s)</LI>
+{/foreach}
+</UL>

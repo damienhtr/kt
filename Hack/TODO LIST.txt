@@ -1,0 +1,6 @@
+X Ajout num piece dans lot & piece.
+Vérification auto des fichiers à partir du num (dans le nom).
+Numéro de dossier en saisie libre.
+Montant si existant.
+Formattage des dates.
+Plusieurs modèles possibles.

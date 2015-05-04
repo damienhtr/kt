@@ -1,0 +1,21 @@
+<h2>{i18n}Document Link{/i18n}</h2>
+
+<p class="descriptiveText">{i18n arg_appname="$appname"}Within #appname# it is possible for users to create links between related documents. Link types may include constructs such as "associated with" and "duplicated by". Please create link types required by your organisation below.{/i18n}</p>
+
+{if (!empty($links))}
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+{entity_checkboxes entities=$links idmethod=getUserFriendlyName selected=$enabled_links method=getMessage assign=boxes name="linkids"}
+{foreach from=$boxes item=box}
+{$box} <br />
+{/foreach}
+
+<input type="hidden" name="action" value="linkFiles" />
+<input type="hidden" name="fFolderId" value="{$context->oFolder->getId()}" />
+<input type="submit" name="submit" value="{i18n}Update{/i18n}" />
+</form>
+
+{else}
+
+<p><strong>{i18n}No links available.{/i18n}</strong>
+
+{/if}

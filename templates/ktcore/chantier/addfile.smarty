@@ -1,0 +1,7 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>
+{i18n}Ajouter un lot au chantier{/i18n} {$context->oFolder->getName()|sanitize}</h2>
+
+<p class="descriptiveText">Les fichiers attendus sont déclarés ici afin de suivre l'état du chantier. 
+Il est complet quand tous les fichiers attendus sont déposés dans la GED.</p>
+
+{$form->render()}

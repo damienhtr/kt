@@ -1,0 +1,104 @@
+{$context->oPage->requireJSResource('thirdpartyjs/MochiKit/MochiKitPacked.js')}
+
+{$context->oPage->requireJSResource('resources/js/toggleselect.js')}
+
+<H2>D&eacutetail de la fiche chantier</H2>
+<p class="descriptiveText">Status du dossier : 
+{if ($status)}
+OK</p>
+
+
+<div class="collapsible expanded">
+<H4 onclick="toggleElementClass('expanded', this.parentNode)">Informations generales:</H4>
+<div class="collapsiblebody">
+<table class="kt_collection narrow">
+<tbody>
+<tr>
+<td>Nom du chantier :</td><td>{$folder}</td>
+<td>Numero de PC :</td><td>{$chantier->getPc()} </td>
+</tr>
+<tr>
+<td>Courriel :</td><td>{$chantier->getMail()} </td>
+<td>Garantie :</td><td>{$chantier->getGarantie()} </td>
+</tr>
+<tr>
+<td>Addresse :</td><td>{$chantier->getAddress()} </td>
+<td>Montant :</td><td>{$chantier->getMontant()} &#128;</td>
+</tr>
+<tr>
+<td>Addresse 2 :</td><td>{$chantier->getAddressCplt()} </td>
+<td>Date de la DOC ou DROC :</td><td class="date">{$chantier->getDateDoc()} </td>
+</tr>
+<tr>
+<td>Code et Commune :</td><td>{$chantier->getCp()} {$chantier->getVille()}</td>
+<td>Date de fin :</td><td class="date">{$chantier->getDateFin()} </td>
+</tr>
+</tbody>
+</table>
+{else}
+A initialiser</p>
+{/if}
+</div></div>
+<p></p>
+
+{assign var="idx" value="-1"}
+{foreach item=oLots from=$lots}
+{assign var="idx" value="`$idx+1`"}
+<div class="collapsible {if $oLots|@sizeof>0}expanded{/if}">
+<H4 onclick="toggleElementClass('expanded', this.parentNode)">{$natures[$idx]}:</H4>
+<div class="collapsiblebody">
+    <table class="kt_collection" cellspacing="0">
+        <thead>
+            <tr>
+                  <th>Nom</th>
+                  <th>Type</th>
+                  <th>Entreprise</th>
+                  <th>Montant</th>
+                  <th>Ajouter/Lier</th>
+                  <th>{i18n}Edit{/i18n}</th>
+                  <th>{i18n}Delete{/i18n}</th>	 
+            </tr>
+        </thead>
+        <tbody>
+        
+{foreach item=lot from=$oLots}
+{assign var='pieces' value=$lot->getPieces()}
+{assign var='id'	 value=$lot->getChantierId()}
+			<tr>
+                  <td><b>{$lot->getCompleteName()}</b></td>
+                  <td>-</td>
+                  <td>{$lot->getEtp()}</td>
+                  <td>{$lot->getMontant()}</td>
+                  <td>
+<a href="{$rootUrl}/action.php?kt_path_info=ktcore.actions.chantier.editfile&lotid={$lot->getId()}&fFolderId={$id}" class="ktAction ktAdd">{i18n}Add{/i18n}</a></td>
+                  <td>
+<a href="{$rootUrl}/action.php?kt_path_info=ktcore.actions.chantier.editfolder&lotid={$lot->getId()}&fFolderId={$id}" class="ktAction ktEdit">{i18n}Edit{/i18n}</a></td>
+                  <td>
+<a href="{$rootUrl}/action.php?kt_path_info=ktcore.actions.chantier.droplot&id={$lot->getId()}&fFolderId={$id}" class="ktAction ktDelete">{i18n}Delete{/i18n}</a></td>
+			</tr>
+			
+{foreach item=oFile from=$pieces}
+            <tr>
+{assign var='fId' value=$oFile->getFileId()}
+{if ($fId>0)}
+                  <td BGCOLOR=#D8F6CE>&raquo; <a href="{$rootUrl}/view.php?fDocumentId={$fId}">{$oFile->getFilePath()}</a></td>
+{else}
+                  <td BGCOLOR=#F6CECE>&raquo; Fichier {$oFile->getType()} manquant</td>
+{/if}
+                  <td>{$oFile->getType()}</td>
+                  <td></td>
+                  <td></td>
+                  <td BGCOLOR={if ($fId>0)}#D8F6CE{else}#F6CECE{/if}>
+<a href="{$rootUrl}/action.php?kt_path_info=ktcore.actions.chantier.link&id={$oFile->getId()}&fFolderId={$id}" class="ktAction ktDownload">Lier</a></td>
+                  <td>-</td>
+                  <td>
+<a href="{$rootUrl}/action.php?kt_path_info=ktcore.actions.chantier.dropfile&id={$oFile->getId()}&fFolderId={$id}" class="ktAction ktDelete">{i18n}Delete{/i18n}</a></td>
+            </tr>
+{/foreach}
+
+{/foreach}
+        </tbody>
+   </table>
+</div>
+</div>
+{/foreach}

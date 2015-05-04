@@ -1,0 +1,5 @@
+{if $is_root}
+   You are the root user.
+{else}
+   Hello {$user}. This is your first dashlet.
+{/if}

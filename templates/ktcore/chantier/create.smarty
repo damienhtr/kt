@@ -1,0 +1,5 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>{i18n}Ajouter un fichier attendu pour{/i18n} {$context->oFolder->getName()|sanitize}</h2>
+
+<p class="descriptiveText">La liste des fichiers attendus permet de spécifier tout ce qui est attendu par un dossier et le compléter au fur et à mesure.</p>
+
+{$form->render()}
