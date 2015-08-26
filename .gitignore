@@ -16,3 +16,12 @@ clienttools/Office
 baobab/
 ktoffice*/
 setup/wizard/install.lock
+/bin
+/docs
+/examples
+/tests
+/var
+/kthelp
+/setup
+/sql
+/tutorials
